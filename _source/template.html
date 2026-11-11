@@ -444,20 +444,36 @@ h3 {
   text-transform: uppercase;
   color: var(--encre-douce);
 }
-.credits {
-  margin: 28px 0 0;
-  font-size: 12px;
-  color: var(--encre-douce);
+
+/* ---------- Galerie des Grands Buffets ---------- */
+.galerie {
+  display: flex;
+  gap: 12px;
+  margin: 24px -36px 0;
+  padding: 4px 36px 6px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding: 0 36px;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
 }
-.credits summary { cursor: pointer; text-align: center; letter-spacing: .08em; }
-.credits ul { margin: 10px 0 0; padding-left: 18px; line-height: 1.5; }
-.credits a { color: inherit; }
+.galerie::-webkit-scrollbar { display: none; }
+.galerie-photo {
+  flex: 0 0 82%;
+  margin: 0;
+  scroll-snap-align: start;
+}
+.galerie-photo .vignette { aspect-ratio: 4 / 3; margin-bottom: 6px; }
+.galerie-photo:first-child .vignette img { object-position: center 35%; }
+.galerie-photo figcaption { font-size: 21px; }
+.glisse { margin-top: 2px; font-size: 21px; transform: rotate(-3deg); }
 
 @media (max-width: 440px) {
   body { padding: 16px 16px 36px; font-size: 16px; }
   .carte { padding: 48px 24px 40px; }
   .ligne .nom { font-size: 18px; }
   .reglement li { grid-template-columns: 46px 1fr; }
+  .galerie { margin: 24px -24px 0; padding: 4px 24px 6px; scroll-padding: 0 24px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -488,13 +504,13 @@ h3 {
       <h2 id="t-lettre">La lettre</h2>
     </div>
     <p>Robin,</p>
-    <p>Tu viens de scanner un souvenir de voyage. Je sais très bien ce que tu as pensé en le recevant&nbsp;: «&nbsp;Ah. Un souvenir. Sympa.&nbsp;» Avec la voix de quelqu’un qui cherche déjà sur quelle étagère l’oublier.</p>
+    <p>Tu viens de recevoir un souvenir de voyage. Je sais très bien ce que tu as pensé&nbsp;: «&nbsp;Ah. Un souvenir. Sympa.&nbsp;» Avec la voix de quelqu’un qui cherche déjà sur quelle étagère l’oublier.</p>
     <p>Mauvaise nouvelle&nbsp;: ce n’était pas le cadeau.<br>Bonne nouvelle&nbsp;: ce n’était pas le cadeau.</p>
     <p>Pour tes 22 ans, je t’invite aux Grands Buffets de Narbonne. Et comme on ne va pas faire tout ce trajet pour un seul repas (même un repas de trois heures), on en fait un week-end à deux. On va visiter, se balader, prendre le soleil… et surtout faire ce pour quoi on est nés&nbsp;: manger. Beaucoup. Avec méthode. Avec dignité au début, puis sans.</p>
     <p>Le buffet, c’est moi qui régale. Le train et l’Airbnb, on les choisit ensemble et on partage&nbsp;: je t’adore, mais je ne suis pas une banque.</p>
     <p>Tout est sur ce menu. Lis bien, entoure ce qui te tente, et préviens ton estomac&nbsp;: il a quelques mois pour s’entraîner.</p>
     <p>Joyeux anniversaire.</p>
-    <p class="bic signature">Ton meilleur pote<br>(oui, celui-là)</p>
+    <p class="bic signature">Tom</p>
   </section>
 
   <div class="fleuron" aria-hidden="true"><span></span></div>
@@ -506,6 +522,11 @@ h3 {
       <h2 id="t-plat">Les Grands Buffets</h2>
     </div>
     <p class="desc-plat">Plus de 150 recettes d’Auguste Escoffier, un plateau de fruits de mer avec homard, 111 fromages (record du monde, homologué Guinness) et 50 desserts. À volonté. Oui, à volonté.</p>
+
+    <div class="galerie" aria-label="Photos des Grands Buffets">
+<!--GALERIE-->
+    </div>
+    <span class="bic note glisse" aria-hidden="true">fais glisser →</span>
 
     <div class="ligne ligne-plat">
       <span class="nom">Le repas, pour deux</span>
@@ -598,19 +619,10 @@ h3 {
       </div>
     </div>
     <span class="tampon" id="tampon">Offert</span>
-    <span class="bic note note--center">le buffet, hein. pas le train.</span>
 
     <p class="fin">Joyeux anniversaire, Robin.</p>
-    <p class="suite">Prochaine étape&nbsp;: on choisit la date ensemble, puis on réserve le train et l’Airbnb. Le buffet se remplit des mois à l’avance, alors réponds vite.</p>
+    <p class="suite">Prochaine étape&nbsp;: on choisira la date ensemble, puis on regardera pour trouver nos trains et un Airbnb. Le buffet se remplit des mois à l’avance, donc ce sera plutôt pour le printemps.</p>
     <p class="pied">Menu imprimé en un seul exemplaire</p>
-
-    <details class="credits">
-      <summary>Crédits photos</summary>
-      <p>Photos issues de Wikimedia Commons, sous licences libres.</p>
-      <ul>
-<!--CREDITS-->
-      </ul>
-    </details>
   </section>
 
 </main>

@@ -21,16 +21,32 @@ PHOTOS = {
     "fontfroide": ("Cloitre abbaye de Fontfroide.jpg", "Christophe Martin", "domaine public"),
     "sigean": ("File by Alexander Baranov - Жирафы (14018664602).jpg", "Alexander Baranov", "CC BY 2.0"),
     "clape": ("Massif de la Clape03.JPG", "Krzysztof Golik", "CC BY-SA 4.0"),
+    "bowling": ("Sawmill Lanes Bowling Alley.JPG", "Giesige.27", "CC BY-SA 4.0"),
 }
 
+# Galerie des Grands Buffets : (fichier, auteur, légende au stylo, largeur d'origine si < 960)
+GALERIE = [
+    ("Fontaine de homards aux Grands Buffets.jpg", "voir la page du fichier", "la fontaine de homards. Oui, une fontaine.", None),
+    ("Grands Buffets plateau de fromages.jpg", "voir la page du fichier", "111 fromages. On a dit qu’on essayait.", 600),
+    ("Buffets, restaurant Les Grands Buffets.jpg", "Madroune", "la salle des entrées (juste les entrées)", None),
+    ("Les grands buffets salon jean de la Fontaine.jpg", "Adrien Privat", "le salon doré. On mange là-dedans.", None),
+]
 
-def commons_urls(filename, width=960):
+
+def commons_urls(filename, width=960, original=False):
     name = filename.replace(" ", "_")
     h = hashlib.md5(name.encode("utf-8")).hexdigest()
     q = urllib.parse.quote(name, safe=",()'")
-    thumb = f"https://upload.wikimedia.org/wikipedia/commons/thumb/{h[0]}/{h[:2]}/{q}/{width}px-{q}"
+    if original:
+        img = f"https://upload.wikimedia.org/wikipedia/commons/{h[0]}/{h[:2]}/{q}"
+    else:
+        img = f"https://upload.wikimedia.org/wikipedia/commons/thumb/{h[0]}/{h[:2]}/{q}/{width}px-{q}"
     page = f"https://commons.wikimedia.org/wiki/File:{q}"
-    return thumb, page
+    return img, page
+
+
+def credit(fichier, auteur, licence=""):
+    return f"Photo : {auteur}{', ' + licence if licence else ''} (Wikimedia Commons)"
 
 
 # ---------------------------------------------------------------- propositions
@@ -60,6 +76,11 @@ GROUPES = [
         ("apero", "L’apéro en terrasse", "L’apéro en terrasse", "à pied",
          "Au soleil, au bord de la Robine. Activité techniquement facultative, moralement obligatoire.",
          "Le canal de la Robine en plein centre de Narbonne"),
+    ]),
+    ("Juste à côté du buffet", [
+        ("bowling", "Le Private Bowling Pub", "Le Private Bowling Pub", "voisin du buffet",
+         "Dans le même complexe que les Grands Buffets&nbsp;: un pub avec bowling, billard, cocktails et parfois des concerts. Le plan parfait pour digérer. Attention, après 111 fromages, la boule va te paraître légère.",
+         "Des pistes de bowling"),
     ]),
     ("Un bus et c’est réglé", [
         ("gruissan", "Gruissan", "Gruissan", "bus 8",
@@ -91,9 +112,11 @@ CERCLE = ('<svg class="cercle" viewBox="0 0 200 60" preserveAspectRatio="none" a
 
 
 def item(cle, data_nom, nom, prix, desc, alt):
-    thumb, _ = commons_urls(PHOTOS[cle][0])
+    fichier, auteur, licence = PHOTOS[cle]
+    thumb, _ = commons_urls(fichier)
+    titre = html.escape(credit(fichier, auteur, licence))
     return f'''      <li><button class="plat" type="button" aria-pressed="false" data-nom="{html.escape(data_nom)}">
-        <span class="vignette" data-lieu="{html.escape(nom)}"><img src="{thumb}" alt="{html.escape(alt)}" loading="lazy" decoding="async" width="960" height="480"></span>
+        <span class="vignette" data-lieu="{html.escape(nom)}"><img src="{thumb}" alt="{html.escape(alt)}" title="{titre}" loading="lazy" decoding="async" width="960" height="480"></span>
         <span class="ligne"><span class="nom">{nom}{CERCLE}</span><span class="coche" aria-hidden="true">✓</span><span class="points" aria-hidden="true"></span><span class="prix">{prix}</span></span>
         <span class="desc">{desc}</span>
       </button></li>'''
@@ -108,18 +131,34 @@ def chariot():
     return "\n".join(out)
 
 
-def credits():
-    lignes = []
+def galerie():
+    out = []
+    for fichier, auteur, legende, largeur in GALERIE:
+        src, _ = commons_urls(fichier, original=bool(largeur))
+        titre = html.escape(credit(fichier, auteur))
+        out.append(f'''      <figure class="galerie-photo">
+        <span class="vignette" data-lieu="Les Grands Buffets"><img src="{src}" alt="{html.escape(legende)}" title="{titre}" loading="lazy" decoding="async"></span>
+        <figcaption class="bic">{legende}</figcaption>
+      </figure>''')
+    return "\n".join(out)
+
+
+def credits_readme():
+    lignes = ["## Crédits photos", "", "Toutes les photos viennent de Wikimedia Commons (licences libres).", ""]
+    for fichier, auteur, _, _ in GALERIE:
+        _, page = commons_urls(fichier)
+        lignes.append(f"- Les Grands Buffets : {auteur} — {page}")
     for titre, items in GROUPES:
         for cle, _, nom, *_ in items:
             fichier, auteur, licence = PHOTOS[cle]
             _, page = commons_urls(fichier)
-            lignes.append(f'        <li><a href="{page}">{nom}</a> : {html.escape(auteur)}, {licence}</li>')
-    return "\n".join(lignes)
+            lignes.append(f"- {nom} : {auteur}, {licence} — {page}")
+    return "\n".join(lignes) + "\n"
 
 
 ICI = os.path.dirname(os.path.abspath(__file__))
 template = open(os.path.join(ICI, "template.html"), encoding="utf-8").read()
-page = template.replace("<!--CHARIOT-->", chariot()).replace("<!--CREDITS-->", credits())
+page = template.replace("<!--CHARIOT-->", chariot()).replace("<!--GALERIE-->", galerie())
 open(os.path.join(ICI, "..", "index.html"), "w", encoding="utf-8").write(page)
+open(os.path.join(ICI, "CREDITS.md"), "w", encoding="utf-8").write(credits_readme())
 print("index.html généré :", len(page), "caractères")
