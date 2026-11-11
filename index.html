@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Le menu des 22 ans de Robin</title>
+<meta name="description" content="Un week-end à Narbonne, un buffet, et quelques surprises.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..800;1,6..96,400..700&family=Caveat:wght@500;700&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  /* Une carte de restaurant posée sur une nappe bordeaux, annotée au stylo Bic par le meilleur pote. */
+  --nappe: #5a1526;
+  --carte: #fcf9f2;
+  --encre: #1d1916;
+  --encre-douce: #635a52;
+  --bic: #2341b3;
+  --tampon: #c2272f;
+  --or: #a9872f;
+  --f-display: "Bodoni Moda", "Didot", "Bodoni 72", Georgia, serif;
+  --f-body: "Jost", "Futura", "Avenir Next", system-ui, sans-serif;
+  --f-main: "Caveat", "Bradley Hand", "Segoe Print", cursive;
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background-color: var(--nappe);
+  background-image:
+    repeating-linear-gradient(0deg, rgba(255,255,255,.035) 0 1px, transparent 1px 4px),
+    repeating-linear-gradient(90deg, rgba(0,0,0,.08) 0 1px, transparent 1px 4px);
+  color: var(--encre);
+  font-family: var(--f-body);
+  font-size: 17px;
+  line-height: 1.6;
+  padding: 28px 16px 48px;
+}
+
+.carte {
+  position: relative;
+  max-width: 600px;
+  margin: 0 auto;
+  background: var(--carte);
+  padding: 56px 36px 48px;
+  box-shadow: 0 2px 0 rgba(0,0,0,.15), 0 24px 48px rgba(0,0,0,.35);
+  outline: 1px solid var(--or);
+  outline-offset: -12px;
+}
+.carte::before {
+  content: "";
+  position: absolute;
+  inset: 17px;
+  border: 1px solid var(--or);
+  opacity: .45;
+  pointer-events: none;
+}
+
+/* ---------- En-tête ---------- */
+.eyebrow {
+  margin: 0;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--encre-douce);
+}
+h1 {
+  margin: 18px 0 0;
+  text-align: center;
+  font-family: var(--f-display);
+  font-weight: 500;
+  line-height: .95;
+  text-wrap: balance;
+}
+.h1-small { display: block; font-style: italic; font-size: 26px; font-weight: 400; }
+.h1-big {
+  display: block;
+  font-size: clamp(84px, 26vw, 148px);
+  font-weight: 700;
+  letter-spacing: -.03em;
+  margin: 4px 0 2px;
+}
+.h1-name { display: block; font-style: italic; font-size: clamp(34px, 10vw, 52px); }
+.service {
+  margin: 22px auto 0;
+  text-align: center;
+  font-size: 14px;
+  color: var(--encre-douce);
+  max-width: 30em;
+}
+
+.bic {
+  font-family: var(--f-main);
+  color: var(--bic);
+  font-size: 24px;
+  line-height: 1.15;
+  font-weight: 500;
+}
+.note {
+  display: block;
+  width: fit-content;
+  margin: 6px 0 0 auto;
+  transform: rotate(-5deg);
+}
+.note--left { margin: 8px auto 0 0; transform: rotate(3deg); }
+.note--center { margin: 10px auto 0; transform: rotate(-2deg); }
+
+.fleuron {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 40px auto;
+  max-width: 220px;
+  color: var(--or);
+}
+.fleuron::before, .fleuron::after { content: ""; flex: 1; height: 1px; background: currentColor; }
+.fleuron span { width: 7px; height: 7px; background: currentColor; transform: rotate(45deg); }
+
+/* ---------- Plats ---------- */
+.course { text-align: center; margin-bottom: 22px; }
+.course-label {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .24em;
+  text-transform: uppercase;
+  color: var(--or);
+}
+h2 {
+  margin: 6px 0 0;
+  font-family: var(--f-display);
+  font-weight: 600;
+  font-size: clamp(30px, 8vw, 40px);
+  line-height: 1.1;
+  text-wrap: balance;
+}
+h3 {
+  margin: 38px 0 8px;
+  font-family: var(--f-display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 22px;
+  text-wrap: balance;
+}
+.desc-plat {
+  font-family: var(--f-display);
+  font-style: italic;
+  font-size: 18px;
+  line-height: 1.5;
+  text-align: center;
+  max-width: 30em;
+  margin: 0 auto;
+  text-wrap: pretty;
+}
+
+.lettre p { margin: 0 0 1em; text-wrap: pretty; }
+.lettre .signature { margin-top: 1.4em; font-size: 28px; }
+
+/* Ligne de menu avec points de conduite */
+.ligne { display: flex; align-items: baseline; gap: 8px; }
+.ligne .nom {
+  font-family: var(--f-display);
+  font-weight: 600;
+  font-size: 19px;
+  line-height: 1.25;
+}
+.ligne .points {
+  flex: 1;
+  min-width: 24px;
+  border-bottom: 2px dotted rgba(29,25,22,.35);
+  transform: translateY(-5px);
+}
+.ligne .prix {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--encre-douce);
+  white-space: nowrap;
+}
+.ligne .prix.bic { font-size: 24px; letter-spacing: 0; text-transform: none; color: var(--bic); }
+.ligne-plat { margin: 26px 0 0; }
+
+.infos {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 8px 16px;
+  margin: 26px 0 0;
+  padding: 18px 0;
+  border-top: 1px solid rgba(169,135,47,.5);
+  border-bottom: 1px solid rgba(169,135,47,.5);
+  font-size: 15px;
+}
+.infos dt {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--or);
+  padding-top: 2px;
+}
+.infos dd { margin: 0; }
+
+.reglement { margin: 30px 0 0; }
+.reglement h3 { margin-top: 0; text-align: center; }
+.reglement ol {
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: art;
+  display: grid;
+  gap: 10px;
+}
+.reglement li {
+  counter-increment: art;
+  display: grid;
+  grid-template-columns: 52px 1fr;
+  gap: 8px;
+  font-size: 16px;
+}
+.reglement li::before {
+  content: "Art. " counter(art);
+  font-family: var(--f-display);
+  font-style: italic;
+  color: var(--or);
+  font-size: 15px;
+  padding-top: 1px;
+}
+
+/* ---------- Chariot ---------- */
+.pratique {
+  margin: 20px 0 0;
+  padding: 14px 16px;
+  background: rgba(169,135,47,.09);
+  font-size: 15px;
+  text-align: center;
+}
+.chariot-groupe { margin: 0; padding: 0; list-style: none; display: grid; gap: 14px; }
+.plat {
+  all: unset;
+  box-sizing: border-box;
+  display: block;
+  margin: 0 -10px;
+  width: calc(100% + 20px);
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color .2s;
+  -webkit-tap-highlight-color: transparent;
+}
+.plat:hover { background: rgba(35,65,179,.05); }
+.plat:focus-visible { outline: 2px solid var(--bic); outline-offset: 2px; }
+
+.vignette {
+  position: relative;
+  display: block;
+  aspect-ratio: 2 / 1;
+  overflow: hidden;
+  margin-bottom: 12px;
+  border-radius: 2px;
+  background: repeating-linear-gradient(45deg, #efe9dd 0 10px, #f6f1e7 10px 20px);
+  transition: box-shadow .25s;
+}
+.vignette img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .5s cubic-bezier(.2,.7,.2,1);
+}
+.plat:hover .vignette img { transform: scale(1.03); }
+.plat[aria-pressed="true"] .vignette { box-shadow: 0 0 0 3px var(--carte), 0 0 0 5px var(--bic); }
+.vignette.vide img { display: none; }
+.vignette.vide::after {
+  content: attr(data-lieu);
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 12px;
+  text-align: center;
+  font-family: var(--f-display);
+  font-style: italic;
+  font-size: 22px;
+  color: var(--encre-douce);
+}
+
+.plat .nom { position: relative; display: inline-block; }
+.plat .desc {
+  display: block;
+  margin-top: 4px;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--encre-douce);
+  text-wrap: pretty;
+}
+.cercle {
+  position: absolute;
+  left: -10px;
+  top: -8px;
+  width: calc(100% + 20px);
+  height: calc(100% + 16px);
+  overflow: visible;
+  pointer-events: none;
+  visibility: hidden;
+  transition: visibility 0s .5s;
+}
+.cercle path {
+  fill: none;
+  stroke: var(--bic);
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-dasharray: var(--long, 3000);
+  stroke-dashoffset: var(--long, 3000);
+  transition: stroke-dashoffset .5s cubic-bezier(.6,.05,.3,1);
+}
+.plat[aria-pressed="true"] .cercle { visibility: visible; transition-delay: 0s; }
+.plat[aria-pressed="true"] .cercle path { stroke-dashoffset: 0; }
+.plat .coche {
+  font-family: var(--f-main);
+  color: var(--bic);
+  font-size: 22px;
+  margin-left: 8px;
+  opacity: 0;
+  transition: opacity .2s .3s;
+}
+.plat[aria-pressed="true"] .coche { opacity: 1; }
+
+.envoi {
+  margin: 34px 0 0;
+  text-align: center;
+  display: grid;
+  gap: 12px;
+  justify-items: center;
+}
+.compte { margin: 0; font-size: 15px; color: var(--encre-douce); }
+.bouton {
+  appearance: none;
+  border: 0;
+  background: var(--encre);
+  color: var(--carte);
+  font-family: var(--f-body);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  padding: 15px 24px;
+  min-height: 48px;
+  cursor: pointer;
+  transition: transform .15s, background-color .2s;
+}
+.bouton:hover { background: #3a332d; }
+.bouton:active { transform: scale(.97); }
+.bouton:focus-visible { outline: 2px solid var(--bic); outline-offset: 3px; }
+.bouton:disabled { opacity: .45; cursor: default; transform: none; }
+.statut { margin: 0; min-height: 1.5em; }
+.copie {
+  width: 100%;
+  min-height: 140px;
+  font: 15px/1.5 var(--f-body);
+  color: var(--encre);
+  background: #fff;
+  border: 1px solid rgba(29,25,22,.25);
+  padding: 12px;
+}
+
+/* ---------- Dessert ---------- */
+.dessert { text-align: center; }
+.dessert .bouton { margin-top: 20px; background: var(--tampon); }
+.dessert .bouton:hover { background: #a51f26; }
+.photo {
+  margin: 26px auto 0;
+  max-width: 340px;
+  background: #fff;
+  padding: 12px 12px 18px;
+  box-shadow: 0 10px 24px rgba(0,0,0,.18);
+  transform: rotate(-2.5deg);
+}
+.photo-vide {
+  aspect-ratio: 4 / 5;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: repeating-linear-gradient(45deg, #efe9dd 0 10px, #f6f1e7 10px 20px);
+  color: var(--encre-douce);
+  font-size: 15px;
+  line-height: 1.4;
+}
+.photo img { display: block; width: 100%; height: auto; }
+.photo figcaption { margin-top: 10px; }
+.photo.revele { animation: pose .55s cubic-bezier(.2,.8,.2,1.2) both; }
+@keyframes pose {
+  from { transform: rotate(-12deg) scale(.6); opacity: 0; }
+  to { transform: rotate(-2.5deg) scale(1); opacity: 1; }
+}
+
+/* ---------- Addition ---------- */
+.addition { position: relative; }
+.lignes-total { display: grid; gap: 10px; }
+.ligne-total .nom { font-size: 18px; font-weight: 500; font-style: italic; }
+.ligne-total .prix { font-family: var(--f-display); font-size: 20px; font-weight: 700; letter-spacing: 0; color: var(--encre); text-transform: none; }
+.tampon {
+  display: block;
+  width: fit-content;
+  margin: 30px auto 26px;
+  padding: 6px 20px 4px;
+  border: 4px double var(--tampon);
+  color: var(--tampon);
+  font-family: var(--f-body);
+  font-weight: 600;
+  font-size: 34px;
+  letter-spacing: .28em;
+  text-indent: .28em;
+  text-transform: uppercase;
+  transform: rotate(-11deg);
+  opacity: .88;
+  mix-blend-mode: multiply;
+}
+.tampon.pose { animation: tampon .45s cubic-bezier(.3,1.6,.5,1) both; }
+@keyframes tampon {
+  0% { transform: rotate(-11deg) scale(1.6); }
+  100% { transform: rotate(-11deg) scale(1); }
+}
+.fin {
+  margin: 44px 0 0;
+  text-align: center;
+  font-family: var(--f-display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(34px, 9vw, 46px);
+  line-height: 1.1;
+  text-wrap: balance;
+}
+.suite { text-align: center; margin: 16px auto 0; max-width: 28em; font-size: 16px; }
+.pied {
+  margin: 40px 0 0;
+  text-align: center;
+  font-size: 11px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--encre-douce);
+}
+.credits {
+  margin: 28px 0 0;
+  font-size: 12px;
+  color: var(--encre-douce);
+}
+.credits summary { cursor: pointer; text-align: center; letter-spacing: .08em; }
+.credits ul { margin: 10px 0 0; padding-left: 18px; line-height: 1.5; }
+.credits a { color: inherit; }
+
+@media (max-width: 440px) {
+  body { padding: 16px 16px 36px; font-size: 16px; }
+  .carte { padding: 48px 24px 40px; }
+  .ligne .nom { font-size: 18px; }
+  .reglement li { grid-template-columns: 46px 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+</style>
+</head>
+<body>
+<main class="carte">
+
+  <header>
+    <p class="eyebrow">Narbonne · Service unique · Table pour deux</p>
+    <h1>
+      <span class="h1-small">Le menu des</span>
+      <span class="h1-big">22 ans</span>
+      <span class="h1-name">de Robin</span>
+    </h1>
+    <span class="bic note">↑ oui, toi.</span>
+    <p class="service">Un week-end à Narbonne. Arrivée en train, départ en roulant.</p>
+  </header>
+
+  <div class="fleuron" aria-hidden="true"><span></span></div>
+
+  <!-- Mise en bouche -->
+  <section class="lettre" aria-labelledby="t-lettre">
+    <div class="course">
+      <p class="course-label">Mise en bouche</p>
+      <h2 id="t-lettre">La lettre</h2>
+    </div>
+    <p>Robin,</p>
+    <p>Tu viens de scanner un souvenir de voyage. Je sais très bien ce que tu as pensé en le recevant&nbsp;: «&nbsp;Ah. Un souvenir. Sympa.&nbsp;» Avec la voix de quelqu’un qui cherche déjà sur quelle étagère l’oublier.</p>
+    <p>Mauvaise nouvelle&nbsp;: ce n’était pas le cadeau.<br>Bonne nouvelle&nbsp;: ce n’était pas le cadeau.</p>
+    <p>Pour tes 22 ans, je t’invite aux Grands Buffets de Narbonne. Et comme on ne va pas faire tout ce trajet pour un seul repas (même un repas de trois heures), on en fait un week-end à deux. On va visiter, se balader, prendre le soleil… et surtout faire ce pour quoi on est nés&nbsp;: manger. Beaucoup. Avec méthode. Avec dignité au début, puis sans.</p>
+    <p>Le buffet, c’est moi qui régale. Le train et l’Airbnb, on les choisit ensemble et on partage&nbsp;: je t’adore, mais je ne suis pas une banque.</p>
+    <p>Tout est sur ce menu. Lis bien, entoure ce qui te tente, et préviens ton estomac&nbsp;: il a quelques mois pour s’entraîner.</p>
+    <p>Joyeux anniversaire.</p>
+    <p class="bic signature">Ton meilleur pote<br>(oui, celui-là)</p>
+  </section>
+
+  <div class="fleuron" aria-hidden="true"><span></span></div>
+
+  <!-- Plat de résistance -->
+  <section aria-labelledby="t-plat">
+    <div class="course">
+      <p class="course-label">Plat de résistance · offert</p>
+      <h2 id="t-plat">Les Grands Buffets</h2>
+    </div>
+    <p class="desc-plat">Plus de 150 recettes d’Auguste Escoffier, un plateau de fruits de mer avec homard, 111 fromages (record du monde, homologué Guinness) et 50 desserts. À volonté. Oui, à volonté.</p>
+
+    <div class="ligne ligne-plat">
+      <span class="nom">Le repas, pour deux</span>
+      <span class="points" aria-hidden="true"></span>
+      <span class="prix bic">c’est pour moi</span>
+    </div>
+
+    <dl class="infos">
+      <dt>Quand</dt>
+      <dd>Date à fixer ensemble. Le buffet est réservé des mois à l’avance, donc on vise le printemps. Ça te laisse le temps de t’entraîner.</dd>
+      <dt>Durée</dt>
+      <dd>Environ 3 heures. Ne rien prévoir juste après. Vraiment rien.</dd>
+      <dt>Tenue</dt>
+      <dd>Pantalon à taille élastique fortement recommandé.</dd>
+    </dl>
+
+    <div class="reglement">
+      <h3>Le règlement intérieur</h3>
+      <ol>
+        <li>Le pain est interdit. C’est un piège pour amateurs.</li>
+        <li>Premier tour sans assiette&nbsp;: repérage. On est des professionnels.</li>
+        <li>111 fromages. On ne les goûtera pas tous. On va quand même essayer.</li>
+        <li>Le premier qui dit «&nbsp;j’ai plus faim&nbsp;» avant le dessert rentre à pied.</li>
+        <li>Le mot «&nbsp;régime&nbsp;» est banni jusqu’au lundi suivant.</li>
+      </ol>
+    </div>
+    <span class="bic note note--left">commence l’entraînement dès maintenant</span>
+  </section>
+
+  <div class="fleuron" aria-hidden="true"><span></span></div>
+
+  <!-- Chariot -->
+  <section aria-labelledby="t-chariot">
+    <div class="course">
+      <p class="course-label">Le chariot</p>
+      <h2 id="t-chariot">Les propositions du week-end</h2>
+    </div>
+    <p class="desc-plat">Comme au chariot de fromages&nbsp;: tout est proposé, rien n’est obligatoire. Touche ce qui te tente pour l’entourer, puis envoie-moi ta sélection.</p>
+
+    <p class="pratique">Le train et l’Airbnb, on les choisit ensemble et on partage. On vise un logement en plein centre&nbsp;: le reste se fait à pied, en bus, ou en roulant.</p>
+
+    <h3>Au centre, à pied</h3>
+    <ul class="chariot-groupe">
+      <li><button class="plat" type="button" aria-pressed="false" data-nom="Les Halles">
+        <span class="vignette" data-lieu="Les Halles"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Mercado,_Narbona,_Francia,_2023-01-08,_DD_116.jpg/960px-Mercado,_Narbona,_Francia,_2023-01-08,_DD_116.jpg" alt="L’intérieur des Halles de Narbonne et ses étals" loading="lazy" decoding="async" width="960" height="480"></span>
+        <span class="ligne"><span class="nom">Les Halles<svg class="cercle" viewBox="0 0 200 60" preserveAspectRatio="none" aria-hidden="true"><path vector-effect="non-scaling-stroke" d="M16 9 C60 2 150 2 189 8 C198 22 197 40 188 52 C140 59 60 59 12 53 C3 40 4 21 15 8 C32 4 52 3 72 4"/></svg></span><span class="coche" aria-hidden="true">✓</span><span class="points" aria-hidden="true"></span><span class="prix">à pied</span></span>
+        <span class="desc">Le marché couvert de Narbonne. On y mange dès le matin, au comptoir, avec les habitués. L’échauffement idéal.</span>
+      </button></li>
+      <li><button class="plat" type="button" aria-pressed="false" data-nom="La cathédrale Saint-Just">
+        <span class="vignette" data-lieu="La cathédrale Saint-Just"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Catedral,_Narbona,_Francia,_2023-01-08,_DD_135-137_HDR.jpg/960px-Catedral,_Narbona,_Francia,_2023-01-08,_DD_135-137_HDR.jpg" alt="La nef de la cathédrale Saint-Just de Narbonne" loading="lazy" decoding="async" width="960" height="480"></span>
+        <span class="ligne"><span class="nom">La cathédrale Saint-Just<svg class="cercle" viewBox="0 0 200 60" preserveAspectRatio="none" aria-hidden="true"><path vector-effect="non-scaling-stroke" d="M16 9 C60 2 150 2 189 8 C198 22 197 40 188 52 C140 59 60 59 12 53 C3 40 4 21 15 8 C32 4 52 3 72 4"/></svg></span><span class="coche" aria-hidden="true">✓</span><span class="points" aria-hidden="true"></span><span class="prix">à pied</span></span>
+        <span class="desc">Commencée en 1272, jamais terminée. Les bâtisseurs sont sûrement partis déjeuner et ne sont jamais revenus. On les comprend.</span>
+      </button></li>
+      <li><button class="plat" type="button" aria-pressed="false" data-nom="Le donjon du palais des Archevêques">
+        <span class="vignette" data-lieu="Le donjon des Archevêques"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/Narbonne_panorama.jpg/960px-Narbonne_panorama.jpg" alt="Narbonne et sa cathédrale vues depuis le donjon" loading="lazy" decoding="async" width="960" height="480"></span>
+        <span class="ligne"><span class="nom">Le donjon des Archevêques<svg class="cercle" viewBox="0 0 200 60" preserveAspectRatio="none" aria-hidden="true"><path vector-effect="non-scaling-stroke" d="M16 9 C60 2 150 2 189 8 C198 22 197 40 188 52 C140 59 60 59 12 53 C3 40 4 21 15 8 C32 4 52 3 72 4"/></svg></span><span class="coche" aria-hidden="true">✓</span><span class="points" aria-hidden="true"></span><span class="prix">à pied</span></span>
+        <span class="desc">On grimpe tout en haut pour la vue sur la ville. Et pour faire un peu de place.</span>
+      </button></li>
+      <li><button class="plat" type="button" aria-pressed="false" data-nom="La Via Domitia">
+        <span class="vignette" data-lieu="La Via Domitia"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Via_Domitia_(Narbonne).jpg/960px-Via_Domitia_(Narbonne).jpg" alt="Les pavés de la Via Domitia sur la place de l’Hôtel-de-Ville" loading="lazy" decoding="async" width="960" height="480"></span>
+        <span class="ligne"><span class="nom">La Via Domitia<svg class="cercle" viewBox="0 0 200 60" preserveAspectRatio="none" aria-hidden="true"><path vector-effect="non-scaling-stroke" d="M16 9 C60 2 150 2 189 8 C198 22 197 40 188 52 C140 59 60 59 12 53 C3 40 4 21 15 8 C32 4 52 3 72 4"/></svg></span><span class="coche" aria-hidden="true">✓</span><span class="points" aria-hidden="true"></span><span class="prix">à pied</span></span>
+        <span class="desc">Un morceau de vraie voie romaine, en plein milieu de la place de l’Hôtel-de-Ville. Gratuit, rapide, et ça fait cultivé.</span>
+      </button></li>
+      <li><button class="plat" type="button" aria-pressed="false" data-nom="L’Horreum">
+        <span class="vignette" data-lieu="L’Horreum"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Roman_Horreum,_Narbonne_(18731509574).jpg/960px-Roman_Horreum,_Narbonne_(18731509574).jpg" alt="Une galerie souterraine de l’Horreum" loading="lazy" decoding="async" width="960" height="480"></span>
+        <span class="ligne"><span class="nom">L’Horreum<svg class="cercle" viewBox="0 0 200 60" preserveAspectRatio="none" aria-hidden="true"><path vector-effect="non-scaling-stroke" d="M16 9 C60 2 150 2 189 8 C198 22 197 40 188 52 C140 59 60 59 12 53 C3 40 4 21 15 8 C32 4 52 3 72 4"/></svg></span><span class="coche" aria-hidden="true">✓</span><span class="points" aria-hidden="true"></span><span class="prix">à pied</span></span>
+        <span class="desc">Des galeries romaines sous la ville. Fraîches, un peu mystérieuses, parfaites pour digérer.</span>
+      </button></li>
+      <li><button class="plat" type="button" aria-pressed="false" data-nom="Le musée Narbo Via">
+        <span class="vignette" data-lieu="Narbo Via"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Le_mus%C3%A9e_Narbo_Via.jpg/960px-Le_mus%C3%A9e_Narbo_Via.jpg" alt="Le bâtiment du musée Narbo Via" loading="lazy" decoding="async" width="960" height="480"></span>
+        <span class="ligne"><span class="nom">Narbo Via<svg class="cercle" viewBox="0 0 200 60" preserveAspectRatio="none" aria-hidden="true"><path vector-effect="non-scaling-stroke" d="M16 9 C60 2 150 2 189 8 C198 22 197 40 188 52 C140 59 60 59 12 53 C3 40 4 21 15 8 C32 4 52 3 72 4"/></svg></span><span class="coche" aria-hidden="true">✓</span><span class="points" aria-hidden="true"></span><span class="prix">à pied</span></span>
+        <span class="desc">Le grand musée romain de Narbonne, avec un mur entier de pierres sculptées. Un peu excentré, mais ça se fait à pied.</span>
+      </button></li>
+      <li><button class="plat" type="button" aria-pressed="false" data-nom="Balade sur la Robine et le pont des Marchands">
+        <span class="vignette" data-lieu="La Robine et le pont des Marchands"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Narbonne_-_Le_pont_des_marchands.jpg/960px-Narbonne_-_Le_pont_des_marchands.jpg" alt="Le pont des Marchands au-dessus du canal de la Robine" loading="lazy" decoding="async" width="960" height="480"></span>
+        <span class="ligne"><span class="nom">La Robine et le pont des Marchands<svg class="cercle" viewBox="0 0 200 60" preserveAspectRatio="none" aria-hidden="true"><path vector-effect="non-scaling-stroke" d="M16 9 C60 2 150 2 189 8 C198 22 197 40 188 52 C140 59 60 59 12 53 C3 40 4 21 15 8 C32 4 52 3 72 4"/></svg></span><span class="coche" aria-hidden="true">✓</span><span class="points" aria-hidden="true"></span><span class="prix">à pied</span></span>
+        <span class="desc">Balade le long du canal, puis passage sur l’un des derniers ponts habités de France. Il y a des maisons dessus. Si, si.</span>
+      </button></li>
+      <li><button class="plat" type="button" aria-pressed="false" data-nom="L’apéro en terrasse">
+        <span class="vignette" data-lieu="L’apéro en terrasse"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Canal_de_la_Robine_-_Narbonne.jpg/960px-Canal_de_la_Robine_-_Narbonne.jpg" alt="Le canal de la Robine en plein centre de Narbonne" loading="lazy" decoding="async" width="960" height="480"></span>
+        <span class="ligne"><span class="nom">L’apéro en terrasse<svg class="cercle" viewBox="0 0 200 60" preserveAspectRatio="none" aria-hidden="true"><path vector-effect="non-scaling-stroke" d="M16 9 C60 2 150 2 189 8 C198 22 197 40 188 52 C140 59 60 59 12 53 C3 40 4 21 15 8 C32 4 52 3 72 4"/></svg></span><span class="coche" aria-hidden="true">✓</span><span class="points" aria-hidden="true"></span><span class="prix">à pied</span></span>
+        <span class="desc">Au soleil, au bord de la Robine. Activité techniquement facultative, moralement obligatoire.</span>
+      </button></li>
+    </ul>
+
+    <h3>Un bus et c’est réglé</h3>
+    <ul class="chariot-groupe">
+      <li><button class="plat" type="button" aria-pressed="false" data-nom="Gruissan">
+        <span class="vignette" data-lieu="Gruissan"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Gruissan_12.jpg/960px-Gruissan_12.jpg" alt="Le village de Gruissan" loading="lazy" decoding="async" width="960" height="480"></span>
+        <span class="ligne"><span class="nom">Gruissan<svg class="cercle" viewBox="0 0 200 60" preserveAspectRatio="none" aria-hidden="true"><path vector-effect="non-scaling-stroke" d="M16 9 C60 2 150 2 189 8 C198 22 197 40 188 52 C140 59 60 59 12 53 C3 40 4 21 15 8 C32 4 52 3 72 4"/></svg></span><span class="coche" aria-hidden="true">✓</span><span class="points" aria-hidden="true"></span><span class="prix">bus 8</span></span>
+        <span class="desc">Un village construit en rond autour d’une vieille tour, des étangs, et la plage des chalets sur pilotis. Pratique pour se perdre deux fois.</span>
+      </button></li>
+      <li><button class="plat" type="button" aria-pressed="false" data-nom="Narbonne-Plage">
+        <span class="vignette" data-lieu="Narbonne-Plage"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Mer_et_plage_-_Narbonne-Plage.JPG/960px-Mer_et_plage_-_Narbonne-Plage.JPG" alt="La plage de Narbonne-Plage" loading="lazy" decoding="async" width="960" height="480"></span>
+        <span class="ligne"><span class="nom">Narbonne-Plage<svg class="cercle" viewBox="0 0 200 60" preserveAspectRatio="none" aria-hidden="true"><path vector-effect="non-scaling-stroke" d="M16 9 C60 2 150 2 189 8 C198 22 197 40 188 52 C140 59 60 59 12 53 C3 40 4 21 15 8 C32 4 52 3 72 4"/></svg></span><span class="coche" aria-hidden="true">✓</span><span class="points" aria-hidden="true"></span><span class="prix">bus 8</span></span>
+        <span class="desc">La mer, sur la même ligne de bus. Au printemps, l’eau sera fraîche. Ce sera ton problème, pas le mien.</span>
+      </button></li>
+      <li><button class="plat" type="button" aria-pressed="false" data-nom="La Littorale à vélo">
+        <span class="vignette" data-lieu="La Littorale à vélo"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/%C3%89tang_de_Gruissan_2010.JPG/960px-%C3%89tang_de_Gruissan_2010.JPG" alt="L’étang de Gruissan" loading="lazy" decoding="async" width="960" height="480"></span>
+        <span class="ligne"><span class="nom">La Littorale à vélo<svg class="cercle" viewBox="0 0 200 60" preserveAspectRatio="none" aria-hidden="true"><path vector-effect="non-scaling-stroke" d="M16 9 C60 2 150 2 189 8 C198 22 197 40 188 52 C140 59 60 59 12 53 C3 40 4 21 15 8 C32 4 52 3 72 4"/></svg></span><span class="coche" aria-hidden="true">✓</span><span class="points" aria-hidden="true"></span><span class="prix">vélo</span></span>
+        <span class="desc">L’itinéraire qui relie Narbonne à la mer en passant par Gruissan. Pour mériter le buffet avant, ou pour l’éliminer après.</span>
+      </button></li>
+    </ul>
+
+    <h3>L’expédition (sans voiture, faut le vouloir)</h3>
+    <ul class="chariot-groupe">
+      <li><button class="plat" type="button" aria-pressed="false" data-nom="L’abbaye de Fontfroide">
+        <span class="vignette" data-lieu="L’abbaye de Fontfroide"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Cloitre_abbaye_de_Fontfroide.jpg/960px-Cloitre_abbaye_de_Fontfroide.jpg" alt="Le cloître de l’abbaye de Fontfroide" loading="lazy" decoding="async" width="960" height="480"></span>
+        <span class="ligne"><span class="nom">L’abbaye de Fontfroide<svg class="cercle" viewBox="0 0 200 60" preserveAspectRatio="none" aria-hidden="true"><path vector-effect="non-scaling-stroke" d="M16 9 C60 2 150 2 189 8 C198 22 197 40 188 52 C140 59 60 59 12 53 C3 40 4 21 15 8 C32 4 52 3 72 4"/></svg></span><span class="coche" aria-hidden="true">✓</span><span class="points" aria-hidden="true"></span><span class="prix">bus + marche</span></span>
+        <span class="desc">La plus belle abbaye du coin, en pleine garrigue, avec une roseraie d’environ 2&nbsp;500 rosiers. Les moines y ont vécu des siècles sans buffet à volonté&nbsp;: respect. Bus 407 jusqu’à Saint-Julien puis 30 minutes de marche, ou un taxi.</span>
+      </button></li>
+      <li><button class="plat" type="button" aria-pressed="false" data-nom="La Réserve africaine de Sigean">
+        <span class="vignette" data-lieu="La Réserve africaine de Sigean"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/File_by_Alexander_Baranov_-_%D0%96%D0%B8%D1%80%D0%B0%D1%84%D1%8B_(14018664602).jpg/960px-File_by_Alexander_Baranov_-_%D0%96%D0%B8%D1%80%D0%B0%D1%84%D1%8B_(14018664602).jpg" alt="Des girafes à la Réserve africaine de Sigean" loading="lazy" decoding="async" width="960" height="480"></span>
+        <span class="ligne"><span class="nom">La Réserve africaine de Sigean<svg class="cercle" viewBox="0 0 200 60" preserveAspectRatio="none" aria-hidden="true"><path vector-effect="non-scaling-stroke" d="M16 9 C60 2 150 2 189 8 C198 22 197 40 188 52 C140 59 60 59 12 53 C3 40 4 21 15 8 C32 4 52 3 72 4"/></svg></span><span class="coche" aria-hidden="true">✓</span><span class="points" aria-hidden="true"></span><span class="prix">voiture</span></span>
+        <span class="desc">Des lions, des girafes et des rhinocéros, dans l’Aude. On en parle&nbsp;?</span>
+      </button></li>
+      <li><button class="plat" type="button" aria-pressed="false" data-nom="Une dégustation dans le massif de la Clape">
+        <span class="vignette" data-lieu="Une dégustation dans la Clape"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Massif_de_la_Clape03.JPG/960px-Massif_de_la_Clape03.JPG" alt="Le massif de la Clape" loading="lazy" decoding="async" width="960" height="480"></span>
+        <span class="ligne"><span class="nom">Une dégustation dans la Clape<svg class="cercle" viewBox="0 0 200 60" preserveAspectRatio="none" aria-hidden="true"><path vector-effect="non-scaling-stroke" d="M16 9 C60 2 150 2 189 8 C198 22 197 40 188 52 C140 59 60 59 12 53 C3 40 4 21 15 8 C32 4 52 3 72 4"/></svg></span><span class="coche" aria-hidden="true">✓</span><span class="points" aria-hidden="true"></span><span class="prix">voiture</span></span>
+        <span class="desc">Le massif juste à côté de Narbonne est couvert de vignes. On goûte, on recrache. En théorie.</span>
+      </button></li>
+    </ul>
+
+    <div class="envoi">
+      <p class="compte" id="compte">Rien d’entouré pour l’instant.</p>
+      <button class="bouton" id="envoyer" type="button" disabled>Envoyer ma sélection</button>
+      <p class="statut bic" id="statut" aria-live="polite"></p>
+      <textarea class="copie" id="copie" readonly hidden aria-label="Ta sélection, à copier"></textarea>
+    </div>
+  </section>
+
+  <div class="fleuron" aria-hidden="true"><span></span></div>
+
+  <!-- Dessert -->
+  <section class="dessert" aria-labelledby="t-dessert">
+    <div class="course">
+      <p class="course-label">Dessert</p>
+      <h2 id="t-dessert">La surprise du chef</h2>
+    </div>
+    <p class="desc-plat">Recommandation du chef&nbsp;: ne touche pas à ce bouton.</p>
+    <button class="bouton" id="surprise" type="button">Ne surtout pas cliquer</button>
+    <figure class="photo" id="photo" hidden>
+      <div class="photo-vide">Photo de Robin à ajouter<br>(la plus gênante possible)</div>
+      <figcaption class="bic">Toi, au 47<sup>e</sup> fromage.</figcaption>
+    </figure>
+  </section>
+
+  <div class="fleuron" aria-hidden="true"><span></span></div>
+
+  <!-- Addition -->
+  <section class="addition" aria-labelledby="t-addition">
+    <div class="course">
+      <p class="course-label">Pour finir</p>
+      <h2 id="t-addition">L’addition</h2>
+    </div>
+    <div class="lignes-total">
+      <div class="ligne ligne-total">
+        <span class="nom">Les Grands Buffets, pour deux</span>
+        <span class="points" aria-hidden="true"></span>
+        <span class="prix">offert</span>
+      </div>
+      <div class="ligne ligne-total">
+        <span class="nom">Le train et l’Airbnb</span>
+        <span class="points" aria-hidden="true"></span>
+        <span class="prix">moitié-moitié</span>
+      </div>
+      <div class="ligne ligne-total">
+        <span class="nom">Les fous rires</span>
+        <span class="points" aria-hidden="true"></span>
+        <span class="prix">illimités</span>
+      </div>
+    </div>
+    <span class="tampon" id="tampon">Offert</span>
+    <span class="bic note note--center">le buffet, hein. pas le train.</span>
+
+    <p class="fin">Joyeux anniversaire, Robin.</p>
+    <p class="suite">Prochaine étape&nbsp;: on choisit la date ensemble, puis on réserve le train et l’Airbnb. Le buffet se remplit des mois à l’avance, alors réponds vite.</p>
+    <p class="pied">Menu imprimé en un seul exemplaire</p>
+
+    <details class="credits">
+      <summary>Crédits photos</summary>
+      <p>Photos issues de Wikimedia Commons, sous licences libres.</p>
+      <ul>
+        <li><a href="https://commons.wikimedia.org/wiki/File:Mercado,_Narbona,_Francia,_2023-01-08,_DD_116.jpg">Les Halles</a> : Diego Delso, CC BY-SA 4.0</li>
+        <li><a href="https://commons.wikimedia.org/wiki/File:Catedral,_Narbona,_Francia,_2023-01-08,_DD_135-137_HDR.jpg">La cathédrale Saint-Just</a> : Diego Delso, CC BY-SA 4.0</li>
+        <li><a href="https://commons.wikimedia.org/wiki/File:Narbonne_panorama.jpg">Le donjon des Archevêques</a> : Benh Lieu Song, CC BY-SA 3.0</li>
+        <li><a href="https://commons.wikimedia.org/wiki/File:Via_Domitia_(Narbonne).jpg">La Via Domitia</a> : Didier Descouens, CC BY-SA 4.0</li>
+        <li><a href="https://commons.wikimedia.org/wiki/File:Roman_Horreum,_Narbonne_(18731509574).jpg">L’Horreum</a> : auteur indiqué sur la page du fichier, licence libre</li>
+        <li><a href="https://commons.wikimedia.org/wiki/File:Le_mus%C3%A9e_Narbo_Via.jpg">Narbo Via</a> : Anthony Morel, CC BY-SA 4.0</li>
+        <li><a href="https://commons.wikimedia.org/wiki/File:Narbonne_-_Le_pont_des_marchands.jpg">La Robine et le pont des Marchands</a> : Didier Descouens, CC BY-SA 4.0</li>
+        <li><a href="https://commons.wikimedia.org/wiki/File:Canal_de_la_Robine_-_Narbonne.jpg">L’apéro en terrasse</a> : Soj, CC BY-SA 3.0</li>
+        <li><a href="https://commons.wikimedia.org/wiki/File:Gruissan_12.jpg">Gruissan</a> : Jcb-caz-11, CC BY-SA 4.0</li>
+        <li><a href="https://commons.wikimedia.org/wiki/File:Mer_et_plage_-_Narbonne-Plage.JPG">Narbonne-Plage</a> : Florian Pépellin, CC BY-SA 3.0</li>
+        <li><a href="https://commons.wikimedia.org/wiki/File:%C3%89tang_de_Gruissan_2010.JPG">La Littorale à vélo</a> : Wikinade, CC BY-SA 3.0</li>
+        <li><a href="https://commons.wikimedia.org/wiki/File:Cloitre_abbaye_de_Fontfroide.jpg">L’abbaye de Fontfroide</a> : Christophe Martin, domaine public</li>
+        <li><a href="https://commons.wikimedia.org/wiki/File:File_by_Alexander_Baranov_-_%D0%96%D0%B8%D1%80%D0%B0%D1%84%D1%8B_(14018664602).jpg">La Réserve africaine de Sigean</a> : Alexander Baranov, CC BY 2.0</li>
+        <li><a href="https://commons.wikimedia.org/wiki/File:Massif_de_la_Clape03.JPG">Une dégustation dans la Clape</a> : Krzysztof Golik, CC BY-SA 4.0</li>
+      </ul>
+    </details>
+  </section>
+
+</main>
+
+<script>
+(function () {
+  // Photos : si une image ne se charge pas, on affiche le nom du lieu à la place
+  Array.prototype.forEach.call(document.querySelectorAll('.vignette img'), function (img) {
+    function vide() { img.parentNode.classList.add('vide'); }
+    if (img.complete && img.naturalWidth === 0 && img.getAttribute('src')) { vide(); }
+    img.addEventListener('error', vide);
+  });
+
+  // Longueur réelle de chaque cercle au stylo, pour qu'aucun ne soit dessiné d'avance
+  var chemins = Array.prototype.slice.call(document.querySelectorAll('.cercle path'));
+  function mesurer() {
+    chemins.forEach(function (p) {
+      var svg = p.ownerSVGElement;
+      var r = svg.getBoundingClientRect();
+      var echelle = Math.max(r.width / 200, r.height / 60, 1);
+      var longueur = Math.ceil(p.getTotalLength() * echelle + 40);
+      p.style.setProperty('--long', longueur);
+    });
+  }
+  mesurer();
+  var minuterie;
+  window.addEventListener('resize', function () { clearTimeout(minuterie); minuterie = setTimeout(mesurer, 150); });
+  if (document.fonts && document.fonts.ready) { document.fonts.ready.then(mesurer); }
+
+  // Sélection des propositions
+  var plats = Array.prototype.slice.call(document.querySelectorAll('.plat'));
+  var compte = document.getElementById('compte');
+  var envoyer = document.getElementById('envoyer');
+  var statut = document.getElementById('statut');
+  var copie = document.getElementById('copie');
+
+  function choisis() {
+    return plats.filter(function (b) { return b.getAttribute('aria-pressed') === 'true'; })
+                .map(function (b) { return b.dataset.nom; });
+  }
+  function maj() {
+    var n = choisis().length;
+    compte.textContent = n === 0 ? 'Rien d’entouré pour l’instant.'
+      : n === 1 ? '1 envie entourée.'
+      : n + ' envies entourées.' + (n >= 8 ? ' Ambitieux.' : '');
+    envoyer.disabled = n === 0;
+    statut.textContent = '';
+    copie.hidden = true;
+  }
+  plats.forEach(function (b) {
+    b.addEventListener('click', function () {
+      b.setAttribute('aria-pressed', b.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');
+      maj();
+    });
+  });
+
+  envoyer.addEventListener('click', function () {
+    var liste = choisis();
+    var texte = 'Pour Narbonne, je prends :\n' + liste.map(function (x) { return '• ' + x; }).join('\n') + '\n\nEt le buffet, évidemment.';
+    function montrerTexte() {
+      copie.value = texte;
+      copie.hidden = false;
+      copie.focus();
+      copie.select();
+      statut.textContent = 'copie ce texte et envoie-le moi';
+    }
+    function copier() {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(texte).then(function () {
+          statut.textContent = 'copié ! colle-le moi en message';
+        }, montrerTexte);
+      } else {
+        montrerTexte();
+      }
+    }
+    if (navigator.share) {
+      try {
+        navigator.share({ text: texte }).then(function () {
+          statut.textContent = 'reçu, chef.';
+        }, function (err) {
+          if (err && err.name === 'AbortError') return;
+          copier();
+        });
+      } catch (e) { copier(); }
+    } else {
+      copier();
+    }
+  });
+
+  // Dessert
+  var surprise = document.getElementById('surprise');
+  var photo = document.getElementById('photo');
+  var etapes = ['On a dit non.', 'Bon. Dernière chance.', 'Trop tard.'];
+  var clics = 0;
+  surprise.addEventListener('click', function () {
+    if (clics >= etapes.length) return;
+    surprise.textContent = etapes[clics];
+    clics++;
+    if (clics === etapes.length) {
+      surprise.disabled = true;
+      photo.hidden = false;
+      photo.classList.add('revele');
+    }
+  });
+
+  // Coup de tampon
+  var tampon = document.getElementById('tampon');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entrees) {
+      entrees.forEach(function (e) {
+        if (e.isIntersecting) { tampon.classList.add('pose'); io.disconnect(); }
+      });
+    }, { threshold: 0.8 });
+    io.observe(tampon);
+  }
+})();
+</script>
+</body>
+</html>
